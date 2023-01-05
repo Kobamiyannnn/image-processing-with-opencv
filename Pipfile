@@ -8,6 +8,7 @@ pynvim = "*"
 opencv-python = "*"
 matplotlib = "*"
 pillow = "*"
+ipykernel = "*"
 
 [dev-packages]
 

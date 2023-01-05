@@ -4,6 +4,8 @@
 # https://github.com/linbojin/Skeletonization-by-Zhang-Suen-Thinning-Algorithm
 # https://qiita.com/hrs1985/items/7751d4b5241d5c314a6d
 
+# https://emotionexplorer.blog.fc2.com/blog-entry-200.html
+
 import cv2
 import numpy as np
 
