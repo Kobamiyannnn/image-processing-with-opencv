@@ -121,7 +121,7 @@ if __name__ == "__main__":
     # THRESH_OTSUは自動で閾値を決めるだけ，他のフラグと組み合わせる必要あり
     # https://pystyle.info/opencv-image-binarization/
     th_val, bin_img = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
+    print(th_val)
     # 白（輝度値255）を0、黒（輝度値0）を1に変換する
     bin_img = (~bin_img.astype(bool)).astype(int)
     # 画像中の画素が必ず8個の近傍を持つために、1ピクセル分ゼロパディング

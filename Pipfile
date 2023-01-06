@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 pynvim = "*"
-opencv-python = "*"
 matplotlib = "*"
 pillow = "*"
 ipykernel = "*"
+opencv-contrib-python = "*"
 
 [dev-packages]
 
