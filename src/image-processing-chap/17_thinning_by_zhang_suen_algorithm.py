@@ -135,5 +135,4 @@ if __name__ == "__main__":
     # image_thinned = zhang_suen_thinning(bin_img)
     image_thinned = cv2.threshold(cv2.ximgproc.thinning(bin_img, cv2.ximgproc.THINNING_ZHANGSUEN), 0, 255, cv2.THRESH_BINARY_INV)
 
-
     cv2.imwrite("../../data/image-processing-chap/ip_17.jpg", image_thinned)
