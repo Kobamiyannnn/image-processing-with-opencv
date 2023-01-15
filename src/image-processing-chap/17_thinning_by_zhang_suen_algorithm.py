@@ -6,7 +6,7 @@
 
 # https://emotionexplorer.blog.fc2.com/blog-entry-200.html
 
-import cv2
+import cv2 # opencv-contrib-python
 import numpy as np
 
 
@@ -46,6 +46,11 @@ def zhang_suen_thinning(binary_image):
     """
     Zhang-Suenの細線化アルゴリズム
     """
+    # 白（輝度値255）を0、黒（輝度値0）を1に変換する
+    binary_image = (~binary_image.astype(bool)).astype(int)
+    # 画像中の画素が必ず8個の近傍を持つために、1ピクセル分ゼロパディング
+    binary_image = np.pad(binary_image, 1)
+
     image_thinned = binary_image.copy() # deepcopy
     changing1 = changing2 = 1 # 初期化
 
@@ -107,6 +112,10 @@ def zhang_suen_thinning(binary_image):
 
         for x, y in changing2:
             image_thinned[x][y] = 0
+
+    image_thinned = unpadding(image_thinned)
+    # 白を255、黒を0とする二値画像に戻す
+    image_thinned = (~image_thinned.astype(bool)).astype(int) * 255
     
     return image_thinned
 
@@ -121,15 +130,10 @@ if __name__ == "__main__":
     # THRESH_OTSUは自動で閾値を決めるだけ，他のフラグと組み合わせる必要あり
     # https://pystyle.info/opencv-image-binarization/
     th_val, bin_img = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    print(th_val)
-    # 白（輝度値255）を0、黒（輝度値0）を1に変換する
-    bin_img = (~bin_img.astype(bool)).astype(int)
-    # 画像中の画素が必ず8個の近傍を持つために、1ピクセル分ゼロパディング
-    bin_img = np.pad(bin_img, 1)
 
     # 細線化アルゴリズムの適用
-    image_thinned = unpadding(zhang_suen_thinning(bin_img))
-    # 白を255、黒を0とする二値画像に戻す
-    image_thinned = (~image_thinned.astype(bool)).astype(int) * 255
+    # image_thinned = zhang_suen_thinning(bin_img)
+    image_thinned = cv2.threshold(cv2.ximgproc.thinning(bin_img, cv2.ximgproc.THINNING_ZHANGSUEN), 0, 255, cv2.THRESH_BINARY_INV)
+
 
     cv2.imwrite("../../data/image-processing-chap/ip_17.jpg", image_thinned)
