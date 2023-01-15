@@ -3,7 +3,7 @@
 
 import cv2
 
-img = cv2.cvtColor(cv2.imread("../../data/Lenna.jpg"), cv2.COLOR_BGR2GRAY)
+img = cv2.imread("../../data/Lenna.jpg")
 
 # 処理領域を設定（left, top, right, bottom）
 roi = (15, 70, 60, 130)
